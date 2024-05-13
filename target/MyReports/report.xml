@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="67.471" tests="4" skipped="0" failures="0" errors="0">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="17.554">
+<system-out><![CDATA[
+Given User opens the chrome browser.........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters search item "Bag" in the search bar.........................passed
+Then User should see search results for "Bag"...............................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a invalid search on Lululemon" time="14.77">
+<system-out><![CDATA[
+Given User opens the chrome browser.........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters invalid search item "Bgg" in the search bar.................passed
+Then User should see search results as "No search results found"............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search and select suggestion on Lululemon" time="14.757">
+<system-out><![CDATA[
+Given User opens the chrome browser.........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters partial search item "Bag" in the search bar.................passed
+Then User should see search suggestions containing "Bag"....................passed
+And User selects the product "Fanny Bag" from the search suggestions........passed
+Then User should see search results for "Fanny Bag".........................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search pagination on Lululemon" time="20.167">
+<system-out><![CDATA[
+Given User opens the chrome browser.........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters search item "Bag" in the search bar.........................passed
+Then User should see search results for "Bag"...............................passed
+And User stores the initial results of the webpage as "InitialResults"......passed
+And User navigates to load the next page of search results..................passed
+Then User should see the next set of search results.........................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+</testsuite>
