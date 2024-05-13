@@ -24,7 +24,6 @@ Feature: Amazon Search Functionality Testing
     Given User opens the chrome browser
     When User opens the Amazon url "https://shop.lululemon.com"
     And User enters search item "Bag" in the search bar
-    And User clicks on search button
     Then User should see search results for "Bag"
     And User should close the browser
 

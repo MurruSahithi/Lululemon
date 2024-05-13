@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -15,24 +16,29 @@ public class searchPage
 		PageFactory.initElements(rdriver, this);
 	}
 	
-	@FindBy(xpath = "//input[@data-testid='nav-mobile-search']")
+	@FindBy(xpath = "//input[@data-testid='nav-desktop-search']")
 	@CacheLookup
 	WebElement txtSearchBar;
 	
-	@FindBy(xpath = "//input[@Title = 'Go']")
+	@FindBy(xpath = "//p[text()='Bag']")
 	@CacheLookup
-	WebElement btnGo;
+	WebElement resultsValidate;
+	
+	
 	
 	public void searchItem(String itemName)
 	{
 		txtSearchBar.clear();
 		txtSearchBar.sendKeys(itemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
 	}
 	
-	public void clickGo()
+	public String validateSearch()
 	{
-		btnGo.click();
+		String results = resultsValidate.getText();
+		return results;
 	}
+	
 	
 	
 }
