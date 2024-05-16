@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="67.471" tests="4" skipped="0" failures="0" errors="0">
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="17.554">
+<testsuite name="Cucumber" time="53.197" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="53.011">
 <system-out><![CDATA[
-Given User opens the chrome browser.........................................passed
+Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
-And User enters search item "Bag" in the search bar.........................passed
+And User enters valid search item "Bag" in the search bar...................passed
 Then User should see search results for "Bag"...............................passed
-And User should close the browser...........................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a invalid search on Lululemon" time="14.77">
-<system-out><![CDATA[
-Given User opens the chrome browser.........................................passed
-When User opens the Website url "https://shop.lululemon.com"................passed
-And User enters invalid search item "Bgg" in the search bar.................passed
-Then User should see search results as "No search results found"............passed
-And User should close the browser...........................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a search and select suggestion on Lululemon" time="14.757">
-<system-out><![CDATA[
-Given User opens the chrome browser.........................................passed
-When User opens the Website url "https://shop.lululemon.com"................passed
-And User enters partial search item "Bag" in the search bar.................passed
-Then User should see search suggestions containing "Bag"....................passed
-And User selects the product "Fanny Bag" from the search suggestions........passed
-Then User should see search results for "Fanny Bag".........................passed
-And User should close the browser...........................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a search pagination on Lululemon" time="20.167">
-<system-out><![CDATA[
-Given User opens the chrome browser.........................................passed
-When User opens the Website url "https://shop.lululemon.com"................passed
-And User enters search item "Bag" in the search bar.........................passed
-Then User should see search results for "Bag"...............................passed
-And User stores the initial results of the webpage as "InitialResults"......passed
-And User navigates to load the next page of search results..................passed
-Then User should see the next set of search results.........................passed
+And User enters a exact valid search item "ribbed midi dress" in the search bar.passed
+Then User should see the products that contain the exact search word........passed
+And User inputs case sensitive capital letter search term like "TOTE" in the search bar.passed
+Then User should see search results for "TOTE"..............................passed
+And User stores the number of products displayed upon using capital letters.passed
+And User inputs case sensitive small letter search term like "tote" in the search bar.passed
+Then User should see search results for "tote"..............................passed
+And User stores the number of products displayed upon using small letters...passed
+And User compares the count and should see equal number of products being listed.passed
+And User enters search item including stop words like "the tote bag" in the search bar.passed
+Then User should see search results for "tote bag" ignoring the stop words..passed
+And User enters a combination of words and special characters like "close-fit" in the search bar.passed
+Then User should see search results for "close-fit".........................passed
+And User enters numeric value like "23" in the search bar...................passed
+Then User should see search results for "23"................................passed
+And User enters a first synonym search item 'cap' in the search bar.........passed
+Then User should see search results for "cap"...............................passed
+And User stores the number of products displayed upon using first synonym...passed
+And User enters a second synonym search item 'hat' in the search bar........passed
+Then User should see search results for "hat"...............................passed
+And User stores the number of products displayed upon using second synonym..passed
+And User compares the count and should see equal number of products being listed.passed
 And User should close the browser...........................................passed
 ]]></system-out>
 </testcase>

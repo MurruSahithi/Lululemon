@@ -1,5 +1,6 @@
 package pageObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -31,6 +32,19 @@ public class searchPage
 	@CacheLookup
 	WebElement showResults;
 	
+	@FindBy(xpath = "//section[@class = 'results-description']/p[@class ='results-title lll-text-body-1']")
+	@CacheLookup
+	WebElement smallshowResults;
+	
+	@FindBy(xpath = "//section[@class = 'results-description']/p[@class ='results-title lll-text-body-1']")
+	@CacheLookup
+	WebElement synonymoneshowResults;
+	
+	@FindBy(xpath = "//section[@class = 'results-description']/p[@class ='results-title lll-text-body-1']")
+	@CacheLookup
+	WebElement synonymtwoshowResults;
+	
+	
 	
 	
 	public void searchItem(String itemName)
@@ -40,10 +54,107 @@ public class searchPage
 		txtSearchBar.sendKeys(Keys.ENTER);
 	}
 	
-	public void searchItemInvalid(String itemNameInvalid)
+	public void exactValidSearchItem(String evsitemName)
 	{
 		txtSearchBar.clear();
-		txtSearchBar.sendKeys(itemNameInvalid);
+		txtSearchBar.sendKeys(evsitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	public void CapitalSearchItem(String CitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(CitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	public String getCapitalSearchItem() {
+		String CapitalresultsText = showResults.getText();
+		return CapitalresultsText;
+    }
+	
+	public void SmallSearchItem(String SitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(SitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	public String getSmallSearchItem() {
+		String SmallresultsText = smallshowResults.getText();
+		return SmallresultsText;
+    }
+	
+	public void StopWordItem(String StopitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(StopitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	public List<WebElement> getProductNames() {
+        return ldriver.findElements(By.xpath("//*[@id='product-list']//h3/a"));
+    }
+
+    public List<String> getProductNamesText() {
+        List<WebElement> products = getProductNames();
+        List<String> productNames = new ArrayList<>();
+        for (WebElement product : products) {
+            productNames.add(product.getText());
+        }
+        return productNames;
+    }
+
+    public boolean areProductsContaining(String Productkeyword) {
+        List<String> productNames = getProductNamesText();
+        for (String productName : productNames) {
+            if (!productName.contains(Productkeyword)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void ComboSpecialItem(String CSitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(CSitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+    
+    public void NumericItem(String NitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(NitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+    
+    public void synonymOneItem(String SoitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(SoitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+    
+    public String getSynonymOneItem() {
+		String SynonymOneText = synonymoneshowResults.getText();
+		return SynonymOneText;
+    }
+    
+    public void synonymTwoItem(String StitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(StitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+    public String getSynonymTwoItem() {
+		String SynonymTwoText = synonymtwoshowResults.getText();
+		return SynonymTwoText;
+    }
+    
+	public void searchItemInvalid(String InvaliditemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(InvaliditemName);
 		txtSearchBar.sendKeys(Keys.ENTER);
 	}
 	
