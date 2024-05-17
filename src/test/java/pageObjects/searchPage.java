@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 
@@ -61,6 +63,76 @@ public class searchPage
 	WebElement pastSuggestions;
 	
 	By viewMoreButtonLocator = By.xpath("//div[@class='OneLinkTx pagination_pagination__vr5cn']/button");
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@FindBy(xpath = "//div/input[@class ='desktop-searchBar']")
+	@CacheLookup
+	WebElement txtMyntraSearchBar;
+	
+	@FindBy(xpath = "//div/h1[@class ='title-title']")
+	@CacheLookup
+	WebElement showProducts;
+	
+	@FindBy(xpath = "//div/ul[@class='pagination-container']/li[@class='pagination-paginationMeta']")
+	@CacheLookup
+	WebElement showPageValue;
+	
+	@FindBy(xpath = "//div/ul[@class='pagination-container']/li[@class='pagination-next']/a")
+	@CacheLookup
+	WebElement NextProducts;
+	
+	@FindBy(xpath = "//div/ul[@class='pagination-container']/li[@class='pagination-prev']/a")
+	@CacheLookup
+	static
+	WebElement PrevProducts;
+	
+	public void clearSearchBarMyntra()
+	{
+		txtMyntraSearchBar.sendKeys(Keys.CONTROL + "a");
+		txtMyntraSearchBar.sendKeys(Keys.DELETE);
+	}
+	
+	public void searchItemMyntra(String itemName)
+	{
+		
+		txtMyntraSearchBar.sendKeys(itemName);
+		txtMyntraSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	public String getSearchResults() {
+		String SearchresultsText = showProducts.getText();
+		return SearchresultsText;
+    }
+	
+	public String getSearchResultsValue() {
+		String SearchPageValueText = showPageValue.getText();
+		return SearchPageValueText;
+    }
+	
+	public void navigateNextPageMyntra()
+	{
+		NextProducts.sendKeys(Keys.ENTER);
+	}
+	public void navigatePrevPageMyntra()
+	{
+		PrevProducts.sendKeys(Keys.ENTER);
+	}
+	public boolean isPrevProductsVisible() {
+        try {
+            return searchPage.PrevProducts.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+	public boolean isPrevProductsNotVisible() {
+        try {
+            return !searchPage.PrevProducts.isDisplayed();
+        } catch (Exception e) {
+            return true; // If an exception is caught, it means the element is not visible
+        }
+    }
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void clearSearchBar()
 	{

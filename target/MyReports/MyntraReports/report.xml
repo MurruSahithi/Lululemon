@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="35.856" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Myntra pagination testing" name="Perform a search pagination from one page to another page on myntra" time="35.603">
+<system-out><![CDATA[
+Given User opens the firefox browser........................................passed
+When User opens the Website url "http://www.myntra.com".....................passed
+And User enters search item "Shrug" in the myntra search bar................passed
+Then User should see all the search results for "Shrug" in myntra...........passed
+And User stores the initial page value of the webpage in myntra.............passed
+And User navigates to load the next page of search results in myntra........passed
+Then User should see the next set of search results in myntra...............passed
+And User navigates to load the previous page of search results in myntra....passed
+Then User should see the prev set of search results in myntra...............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+</testsuite>

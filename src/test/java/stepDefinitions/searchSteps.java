@@ -27,6 +27,10 @@ public class searchSteps
 	public Boolean containsKeyword;
 	public Boolean containsStopKeyword;
 	public Boolean containsInvalidKeyword;
+	public String displayResultsMyntra;
+	public String storeInitalPageMyntra;
+	public String storeNextPageMyntra;
+	public String storePrevPageMyntra;
 	
 	
 	
@@ -389,6 +393,53 @@ public class searchSteps
         assert isButtonNotPresent : "The 'View More' button is still present.";
         System.out.println("No 'View More' button found, end of product list reached.");
 	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@When("User enters search item {string} in the myntra search bar")
+	public void user_enters_search_item_in_the_myntra_search_bar(String myntraItem) throws InterruptedException {
+		sp.searchItemMyntra(myntraItem);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see all the search results for {string} in myntra")
+	public void user_should_see_all_the_search_results_for_in_myntra(String myntraresultsItem) throws InterruptedException {
+		displayResultsMyntra = sp.getSearchResults();
+		Thread.sleep(3000);
+		assertEquals(displayResultsMyntra, myntraresultsItem);
+	}
+
+	@Then("User stores the initial page value of the webpage in myntra")
+	public void user_stores_the_initial_page_value_of_the_webpage_in_myntra() throws InterruptedException {
+		storeInitalPageMyntra = sp.getSearchResultsValue();
+		Thread.sleep(3000);
+	}
+
+	@Then("User navigates to load the next page of search results in myntra")
+	public void user_navigates_to_load_the_next_page_of_search_results_in_myntra() throws InterruptedException {
+	    sp.navigateNextPageMyntra();
+	    Thread.sleep(8000);
+	}
+
+	@Then("User should see the next set of search results in myntra")
+	public void user_should_see_the_next_set_of_search_results_in_myntra() throws InterruptedException {
+		Thread.sleep(8000);
+		sp.isPrevProductsVisible();
+		
+	}
+
+	@Then("User navigates to load the previous page of search results in myntra")
+	public void user_navigates_to_load_the_previous_page_of_search_results_in_myntra() throws InterruptedException {
+		
+		sp.navigatePrevPageMyntra();
+	    Thread.sleep(5000);
+	}
+	
+	@Then("User should see the prev set of search results in myntra")
+	public void user_should_see_the_prev_set_of_search_results_in_myntra() throws InterruptedException {
+		
+		sp.isPrevProductsNotVisible();
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/*@Given("User opens the chrome browser")
 	public void user_opens_the_chrome_browser() 
 	{
