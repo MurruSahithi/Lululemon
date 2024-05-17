@@ -2,6 +2,9 @@ package stepDefinitions;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 //import static org.junit.Assert.assertNotEquals;
 
@@ -21,6 +24,7 @@ public class searchSteps
 	public String scountitem;
 	public Boolean containsKeyword;
 	public Boolean containsStopKeyword;
+	public Boolean containsInvalidKeyword;
 	
 	
 	
@@ -52,6 +56,7 @@ public class searchSteps
 		{
 			Assert.assertTrue(true);
 		}
+		containsKeyword = sp.areProductsContaining(searchItem);
 		sp.clearSearchBar();
 			
 	}
@@ -63,12 +68,13 @@ public class searchSteps
 		Thread.sleep(3000);
 	}
 
-	@Then("User should see the products that contain the exact search word")
-	public void user_should_see_the_products_that_contain_the_exact_search_word() {
+	@Then("User should see the products that contain the exact search word {string}")
+	public void user_should_see_the_products_that_contain_the_exact_search_word(String exactsearchItem) {
 		if(driver.getPageSource().contains("Showing") && driver.getPageSource().contains("results for:"))
 		{
 			Assert.assertTrue(true);
 		}
+		containsKeyword = sp.areProductsContaining(exactsearchItem);
 		sp.clearSearchBar();
 	}
 
@@ -109,11 +115,11 @@ public class searchSteps
 		Thread.sleep(3000);
 	}
 
-	@Then("User should see search results for {string} ignoring the stop words")
-	public void user_should_see_search_results_for_ignoring_the_stop_words(String pItem) {
-		containsKeyword = sp.areProductsContaining("pItem");
+	@Then("User should see search results for {string} ignoring the stop words {string}")
+	public void user_should_see_search_results_for_ignoring_the_stop_words(String pItem1, String pItem2) {
+		containsKeyword = sp.areProductsContaining(pItem1);
 		sp.clearSearchBar();
-		containsStopKeyword = sp.areProductsContaining2("pItem");
+		containsStopKeyword = sp.areProductsContaining2(pItem2, pItem1);
 	}
 
 	@Then("User enters a combination of words and special characters like {string} in the search bar")
@@ -151,12 +157,230 @@ public class searchSteps
 		scountitem = sp.getSynonymTwoItem();
 	}
 	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@When("User enters mutiple valid search items {string} in the search bar")
+	public void user_enters_mutiple_valid_search_items_in_the_search_bar(String mvItem) throws InterruptedException 
+	{
+	    sp.sarchMultipleValidItem(mvItem);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see the {string} searched item")
+	public void user_should_see_the_searched_item(String mvSearchItem) {
+		if(driver.getPageSource().contains("No search results for " + mvSearchItem))
+	    {
+	    	Assert.assertTrue(true);
+	    }
+		sp.clearSearchBar();
+	}
+
+	@Then("User enters invalid search item {string} in the search bar")
+	public void user_enters_invalid_search_item_in_the_search_bar(String itemInvalid) throws InterruptedException {
+	    sp.searchItemInvalid(itemInvalid);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see search results as {string}")
+	public void user_should_see_search_results_as(String searchItemInvalid) {
+		if(driver.getPageSource().contains("No search results for " + searchItemInvalid))
+	    {
+	    	Assert.assertTrue(true);
+	    }
+		sp.clearSearchBar();
+	}
+
+	@Then("User enters only special characters like {string}")
+	public void user_enters_only_special_characters_like(String scharItem) throws InterruptedException {
+	    sp.searchItemSpecialChar(scharItem);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User enters combination of valid and invalid search terms like {string}")
+	public void user_enters_combination_of_valid_and_invalid_search_terms_like(String Comboitem) throws InterruptedException {
+	    sp.ComboSpecialItem(Comboitem);
+	    Thread.sleep(3000);
+	}
+	
+	@Then("User should see search results for {string} ignoring the invalid words {string}")
+	public void user_should_see_search_results_for_ignoring_the_invalid_words(String pItem1, String pItem2) {
+		containsKeyword = sp.areProductsContaining(pItem1);
+		sp.clearSearchBar();
+		containsInvalidKeyword = sp.areProductsContaining2(pItem2,pItem2);
+	}
+
+
+
+	@Then("User enters whitespace {string} in the search bar")
+	public void user_enters_whitespace_in_the_search_bar(String WItemname) throws InterruptedException {
+		sp.whiteSpaceItem(WItemname);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User enters a search item with extensive length of characters like {string} in the search bar")
+	public void user_enters_a_search_item_with_extensive_length_of_characters_like_in_the_search_bar(String LItemName) throws InterruptedException {
+		sp.LongSearchItem(LItemName);
+	    Thread.sleep(3000);
+	}
+
+	@Then("search bar should let the user enter all the characters {string} as it has no character limit.")
+	public void search_bar_should_let_the_user_enter_all_the_characters_as_it_has_no_character_limit(String vsearchBar) {
+		if(driver.getPageSource().contains("No search results for " + vsearchBar))
+	    {
+	    	Assert.assertTrue(true);
+	    }
+		sp.clearSearchBar();
+	}
+
+	@Then("User enters search item in different language {string} in the search bar")
+	public void user_enters_search_item_in_different_language_in_the_search_bar(String FrenchItem) throws InterruptedException {
+	    sp.frenchsearchItem(FrenchItem);
+	    Thread.sleep(3000);
+	}
 
 	
+////////////////////////////////////////////////////////////////////////////////////////
+	
+	@When("User enters item for search suggestion {string} in the search bar")
+	public void user_enters_item_for_search_suggestion_in_the_search_bar(String suggestionItem) throws InterruptedException 
+	{
+		sp.searchsuggestionItem(suggestionItem);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see search suggestions containing {string} in the search bar")
+	public void user_should_see_search_suggestions_containing_in_the_search_bar(String searchKeyword) 
+	{
+		assertTrue("Search suggestions not displayed", sp.isSearchSuggestionsDisplayed());
+        assertTrue("Search suggestions do not contain '" + searchKeyword + "'", sp.areSearchSuggestionsContaining(searchKeyword));
+        sp.clearSearchBar();
+	}
+
+	@Then("User enters a different item for search suggestion {string} in the search bar")
+	public void user_enters_a_different_item_for_search_suggestion_in_the_search_bar(String suggestionItem2) throws InterruptedException 
+	{
+		sp.searchsuggestionItem(suggestionItem2);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see search suggestions containing {string} but not {string} in the search bar")
+	public void user_should_see_search_suggestions_containing_but_not_in_the_search_bar(String searchKeyword1, String searchKeyword2) 
+	{
+		assertTrue("Search suggestions not displayed", sp.isSearchSuggestionsDisplayed());
+        assertTrue("Search suggestions do not contain '" + searchKeyword1 + "'", sp.areSearchSuggestionsContaining(searchKeyword1));
+        assertFalse("Search suggestions contain '" + searchKeyword2 + "'", sp.areSearchSuggestionsContaining(searchKeyword2));
+        sp.clearSearchBar();
+	}
+
+	@Then("User enters a search suggestion item {string} that is not present on the website")
+	public void user_enters_a_search_suggestion_item_that_is_not_present_on_the_website(String suggestionItem3) throws InterruptedException 
+	{
+		sp.searchsuggestionItemInvalid(suggestionItem3);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should not see any search suggestions")
+	public void user_should_not_see_any_search_suggestions() 
+	{
+		assertTrue("Search suggestions displayed", sp.isSearchSuggestionsNotDisplayed());
+		sp.clearSearchBar();
+	}
+
+	@Then("User enters partial search item {string} in the search bar")
+	public void user_enters_partial_search_item_in_the_search_bar(String partialItem) throws InterruptedException 
+	{
+		sp.partialsearchItem(partialItem);
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see search suggestions containing {string}")
+	public void user_should_see_search_suggestions_containing(String searchKeyword3) 
+	{
+		assertTrue("Search suggestions not displayed", sp.isSearchSuggestionsDisplayed());
+        assertTrue("Search suggestions do not contain '" + searchKeyword3 + "'", sp.areSearchSuggestionsContaining(searchKeyword3));
+	}
+
+	@Then("User selects the product {string} from the search suggestions")
+	public void user_selects_the_product_from_the_search_suggestions(String product) 
+	{
+		sp.selectSearchSuggestionContaining(product);
+		sp.clearSearchBar();
+	}
 	
 	
 	
+
+	@Then("User clicks on the search bar to see past search suggestions")
+	public void user_clicks_on_the_search_bar_to_see_past_search_suggestions() {
+		sp.EmptyItem();
+	}
+
+
+
+	@Then("User should see the past search suggestions")
+	public void user_should_see_search_suggestions() 
+	{
+		assertTrue("Past Search suggestions are not displayed", sp.isPastSearchSuggestionsDisplayed());
+		sp.clearSearchBar();
+	}
 	
+////////////////////////////////////////////////////////////////////////////////////////
+	
+	@When("User enters search item {string} in the search bar")
+	public void user_enters_search_item_in_the_search_bar(String item) throws InterruptedException {
+		sp.searchItem(item);
+	    Thread.sleep(3000);
+	}
+	
+	@Then("User should see all the search results for {string}")
+	public void user_should_see_all_the_search_results_for(String searchItem) 
+	{
+		if(driver.getPageSource().contains("Showing") && driver.getPageSource().contains("results for:"))
+		{
+			Assert.assertTrue(true);
+		}
+		
+			
+	}
+
+
+	@Then("User stores the initial results of the webpage as Initial Results")
+	public void user_stores_the_initial_results_of_the_webpage_as_initial_results() throws InterruptedException {
+		initialResultsText = sp.validateResults();
+		Thread.sleep(5000);
+	}
+	
+	
+
+
+
+	@Then("User navigates to load the next page of search results")
+	public void user_navigates_to_load_the_next_page_of_search_results() throws InterruptedException {
+		sp.viewMoreProductsButton();
+	    Thread.sleep(3000);
+	}
+
+	@Then("User should see the next set of search results")
+	public void user_should_see_the_next_set_of_search_results() {
+		expectedResultsText = sp.ValidateNextPageResults();
+		if(driver.getPageSource().contains("Showing") && driver.getPageSource().contains("results for:"))
+		{
+			Assert.assertTrue(true);
+		}
+		assertNotEquals(expectedResultsText, initialResultsText);
+	}
+
+	@Then("User should navigate to the end of the product list")
+	public void user_should_navigate_to_the_end_of_the_product_list() throws InterruptedException {
+		sp.navigateToEndOfPage();
+	}
+	
+	@Then("User should not be able to see the view more products button")
+	public void user_should_not_be_able_to_see_the_view_more_products_button() {
+		boolean isButtonNotPresent = sp.isViewMoreButtonNotPresent();
+        assert isButtonNotPresent : "The 'View More' button is still present.";
+        System.out.println("No 'View More' button found, end of product list reached.");
+	}
 	/*@Given("User opens the chrome browser")
 	public void user_opens_the_chrome_browser() 
 	{

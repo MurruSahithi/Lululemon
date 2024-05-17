@@ -1,7 +1,10 @@
 package pageObjects;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,9 +14,12 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
+
 public class searchPage 
 {
 	public WebDriver ldriver;
+	
 	public searchPage(WebDriver rdriver)
 	{
 		ldriver = rdriver;
@@ -24,7 +30,8 @@ public class searchPage
 	@CacheLookup
 	WebElement txtSearchBar;
 	
-	@FindBy(xpath = "//button[contains(text(), 'View More Products')]")
+	//@FindBy(xpath = "//button[contains(text(), 'View More Products')]")
+	@FindBy(xpath = "//div[@class='OneLinkTx pagination_pagination__vr5cn']/button")
 	@CacheLookup
 	WebElement btnMoreProducts;
 	
@@ -44,7 +51,16 @@ public class searchPage
 	@CacheLookup
 	WebElement synonymtwoshowResults;
 	
+	@FindBy(xpath = "//*[@id=\"app\"]/header/nav/div[3]/div[3]/ul")
+	@CacheLookup
+	WebElement sidespace;
 	
+	
+	@FindBy(xpath = "//div[@class ='mega-nav_navWrapperDesktop__2bY3W']/div/ul/div/div/div/ul/li")
+	@CacheLookup
+	WebElement pastSuggestions;
+	
+	By viewMoreButtonLocator = By.xpath("//div[@class='OneLinkTx pagination_pagination__vr5cn']/button");
 	
 	public void clearSearchBar()
 	{
@@ -118,15 +134,18 @@ public class searchPage
         return true;
     }
     
-    public boolean areProductsContaining2(String Productkeyword2) {
+    public boolean areProductsContaining2(String Productkeyword1, String Productkeyword2) {
         List<String> productNames = getProductNamesText();
         for (String productName : productNames) {
-            if (!productName.contains("the"+ Productkeyword2)) {
+            if (!productName.contains(Productkeyword2 + Productkeyword1)) {
                 return true;
             }
         }
         return false;
     }
+    
+    
+    
     
     public void ComboSpecialItem(String CSitemName)
 	{
@@ -166,12 +185,81 @@ public class searchPage
 		return SynonymTwoText;
     }
     
+    
+    public void  sarchMultipleValidItem(String MultiItemName)
+    {
+    	txtSearchBar.clear();
+		txtSearchBar.sendKeys(MultiItemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+    }
+    
 	public void searchItemInvalid(String InvaliditemName)
 	{
 		txtSearchBar.clear();
 		txtSearchBar.sendKeys(InvaliditemName);
 		txtSearchBar.sendKeys(Keys.ENTER);
 	}
+	
+	public void searchItemSpecialChar(String SpecialCharitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(SpecialCharitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	public void searchItemCombo(String ComboitemName)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(ComboitemName);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	
+	
+	public void whiteSpaceItem(String WhiteItem)
+	{
+		
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(WhiteItem);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+	
+	public void LongSearchItem(String LongItem)
+	{
+		
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(LongItem);
+	}
+	
+    
+    public void frenchsearchItem(String itemNameFrench)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(itemNameFrench);
+		txtSearchBar.sendKeys(Keys.ENTER);
+	}
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public void searchsuggestionItem(String ssItem)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(ssItem);
+	}
+    
+    public void searchsuggestionItemInvalid(String ssItemInvalid)
+	{
+		txtSearchBar.clear();
+		txtSearchBar.sendKeys(ssItemInvalid);
+	}
+    
+    public void EmptyItem()
+    {
+    	txtSearchBar.sendKeys(Keys.ENTER);
+    }
+    
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void partialsearchItem(String itemNamePartial)
 	{
@@ -204,6 +292,15 @@ public class searchPage
 	public boolean isSearchSuggestionsDisplayed() {
         return ldriver.findElements(By.xpath("//div[@class='search_suggestions__391m1']/ul/li")).size() > 0;
     }
+	
+	public boolean isSearchSuggestionsNotDisplayed() {
+		return ldriver.findElements(By.xpath("//div[@class='search_suggestions__391m1']/ul/li")).size() < 1;
+	}
+	
+	public boolean isPastSearchSuggestionsDisplayed()
+	{
+		return ldriver.findElements(By.xpath("//div[@class ='mega-nav_navWrapperDesktop__2bY3W']/div/ul/div/div/div/ul/li")).size() > 0;
+	}
 
     public List<WebElement> getSearchSuggestions() {
         return ldriver.findElements(By.xpath("//div[@class='search_suggestions__391m1']/ul/li/a[@class='anchor_anchor__1pPYT anchor_underline__3Sy04']"));
@@ -230,8 +327,26 @@ public class searchPage
         throw new IllegalArgumentException("No suggestion containing '" + keyword + "' found");
     }
     
-    
+    public void navigateToEndOfPage() throws InterruptedException
+    {
+    	while (true) {
+            List<WebElement> viewMoreButtons = ldriver.findElements(viewMoreButtonLocator);
+            if (viewMoreButtons.isEmpty()) {
+                System.out.println("End of products. No 'View More' button found.");
+                break;
+            }
+
+            WebElement viewMoreButton = viewMoreButtons.get(0);
+            viewMoreButton.click();
+
+            Thread.sleep(3000);  // Wait for 3 seconds to allow new products to load
+        }
+    }
 	
+    public boolean isViewMoreButtonNotPresent() {
+        List<WebElement> viewMoreButtons = ldriver.findElements(viewMoreButtonLocator);
+        return viewMoreButtons.isEmpty();
+    }
 	
 	
 }
