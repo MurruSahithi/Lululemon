@@ -46,6 +46,11 @@ public class searchPage
 	
 	
 	
+	public void clearSearchBar()
+	{
+		txtSearchBar.sendKeys(Keys.CONTROL + "a");
+		txtSearchBar.sendKeys(Keys.DELETE);
+	}
 	
 	public void searchItem(String itemName)
 	{
@@ -111,6 +116,16 @@ public class searchPage
             }
         }
         return true;
+    }
+    
+    public boolean areProductsContaining2(String Productkeyword2) {
+        List<String> productNames = getProductNamesText();
+        for (String productName : productNames) {
+            if (!productName.contains("the"+ Productkeyword2)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public void ComboSpecialItem(String CSitemName)

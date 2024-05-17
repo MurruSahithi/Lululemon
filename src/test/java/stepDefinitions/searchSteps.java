@@ -20,6 +20,7 @@ public class searchSteps
 	public String ccountitem;
 	public String scountitem;
 	public Boolean containsKeyword;
+	public Boolean containsStopKeyword;
 	
 	
 	
@@ -51,6 +52,7 @@ public class searchSteps
 		{
 			Assert.assertTrue(true);
 		}
+		sp.clearSearchBar();
 			
 	}
 
@@ -67,6 +69,7 @@ public class searchSteps
 		{
 			Assert.assertTrue(true);
 		}
+		sp.clearSearchBar();
 	}
 
 	@Then("User inputs case sensitive capital letter search term like {string} in the search bar")
@@ -78,6 +81,7 @@ public class searchSteps
 	@Then("User stores the number of products displayed upon using capital letters")
 	public void user_stores_the_number_of_products_displayed_upon_using_capital_letters() {
 	    ccountitem = sp.getCapitalSearchItem();
+	    sp.clearSearchBar();
 	}
 
 	@Then("User inputs case sensitive small letter search term like {string} in the search bar")
@@ -89,11 +93,13 @@ public class searchSteps
 	@Then("User stores the number of products displayed upon using small letters")
 	public void user_stores_the_number_of_products_displayed_upon_using_small_letters() {
 		scountitem = sp.getSmallSearchItem();
+		
 	}
 
 	@Then("User compares the count and should see equal number of products being listed")
 	public void user_compares_the_count_and_should_see_equal_number_of_products_being_listed() {
 		assertEquals(ccountitem, scountitem);
+		sp.clearSearchBar();
 	}
 
 
@@ -106,6 +112,8 @@ public class searchSteps
 	@Then("User should see search results for {string} ignoring the stop words")
 	public void user_should_see_search_results_for_ignoring_the_stop_words(String pItem) {
 		containsKeyword = sp.areProductsContaining("pItem");
+		sp.clearSearchBar();
+		containsStopKeyword = sp.areProductsContaining2("pItem");
 	}
 
 	@Then("User enters a combination of words and special characters like {string} in the search bar")
@@ -129,6 +137,7 @@ public class searchSteps
 	@Then("User stores the number of products displayed upon using first synonym")
 	public void user_stores_the_number_of_products_displayed_upon_using_first_synonym() {
 		ccountitem = sp.getSynonymOneItem();
+		sp.clearSearchBar();
 	}
 
 	@Then("User enters a second synonym search item {string} in the search bar")
@@ -141,6 +150,8 @@ public class searchSteps
 	public void user_stores_the_number_of_products_displayed_upon_using_second_synonym() {
 		scountitem = sp.getSynonymTwoItem();
 	}
+	
+
 	
 	
 	

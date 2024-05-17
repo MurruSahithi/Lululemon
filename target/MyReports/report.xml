@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="53.197" tests="1" skipped="0" failures="0" errors="0">
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="53.011">
+<testsuite name="Cucumber" time="45.163" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="45.062">
 <system-out><![CDATA[
 Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
