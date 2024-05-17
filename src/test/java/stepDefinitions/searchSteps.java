@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import io.cucumber.java.en.*;
 import pageObjects.searchPage;
 
@@ -32,6 +34,12 @@ public class searchSteps
 	@Given("User opens the edge browser")
 	public void user_opens_the_edge_browser() {
 		driver = new EdgeDriver();
+		sp = new searchPage(driver);
+	}
+	
+	@Given("User opens the firefox browser")
+	public void user_opens_the_firefox_browser() {
+		driver = new FirefoxDriver();
 		sp = new searchPage(driver);
 	}
 	
@@ -301,10 +309,10 @@ public class searchSteps
 	}
 
 	@Then("User selects the product {string} from the search suggestions")
-	public void user_selects_the_product_from_the_search_suggestions(String product) 
+	public void user_selects_the_product_from_the_search_suggestions(String product) throws InterruptedException 
 	{
 		sp.selectSearchSuggestionContaining(product);
-		sp.clearSearchBar();
+		Thread.sleep(3000);
 	}
 	
 	

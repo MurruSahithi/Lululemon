@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="130.127" tests="4" skipped="0" failures="0" errors="0">
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="43.303">
+<testsuite name="Cucumber" time="386.916" tests="22" skipped="0" failures="0" errors="0">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a cross browser search on Lululemon" time="15.324">
+<system-out><![CDATA[
+Given User opens the firefox browser........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters valid search item "Bag" in the search bar...................passed
+Then User should see search results for "Bag"...............................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a valid search on Lululemon" time="17.644">
 <system-out><![CDATA[
 Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters valid search item "Bag" in the search bar...................passed
 Then User should see search results for "Bag"...............................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a exact valid line search on Lululemon" time="16.896">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters a exact valid search item "ribbed midi dress" in the search bar.passed
 Then User should see the products that contain the exact search word "ribbed midi dress".passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a case sensitive search on Lululemon" time="20.627">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User inputs case sensitive capital letter search term like "TOTE" in the search bar.passed
 Then User should see search results for "TOTE"..............................passed
 And User stores the number of products displayed upon using capital letters.passed
@@ -15,12 +38,40 @@ And User inputs case sensitive small letter search term like "tote" in the searc
 Then User should see search results for "tote"..............................passed
 And User stores the number of products displayed upon using small letters...passed
 And User compares the count and should see equal number of products being listed.passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a stop words search on Lululemon" time="16.274">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters search item including stop words like "the tote bag" in the search bar.passed
 Then User should see search results for "tote bag" ignoring the stop words "the".passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a concatinated with special character search on Lululemon" time="16.207">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters a combination of words and special characters like "close-fit" in the search bar.passed
 Then User should see search results for "close-fit".........................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a numeric search on Lululemon" time="17.026">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters numeric value like "23" in the search bar...................passed
 Then User should see search results for "23"................................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a synonym search on Lululemon" time="23.527">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters a first synonym search item 'cap' in the search bar.........passed
 Then User should see search results for "cap"...............................passed
 And User stores the number of products displayed upon using first synonym...passed
@@ -31,28 +82,79 @@ And User compares the count and should see equal number of products being listed
 And User should close the browser...........................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a invalid search on Lululemon" time="32.67">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a mutliple valid entry search on Lululemon" time="15.783">
 <system-out><![CDATA[
 Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters mutiple valid search items "top pant" in the search bar.....passed
 Then User should see the "No search results for " searched item.............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a invalid search on Lululemon" time="15.761">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters invalid search item "Bgg" in the search bar.................passed
 Then User should see search results as "No search results for"..............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a special character search on Lululemon" time="15.795">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters only special characters like "#&#_&"........................passed
 Then User should see the "No search results for " searched item.............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a combination of valid and special character entry search on Lululemon" time="15.869">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters combination of valid and invalid search terms like "Tote #&#_&".passed
 Then User should see search results for "tote" ignoring the invalid words "#&#_&".passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a whitespace search on Lululemon" time="15.547">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters whitespace " " in the search bar............................passed
 Then User should see search results as "No search results for"..............passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a extensive length search on Lululemon" time="15.355">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters a search item with extensive length of characters like "qwertqwertqwertqwertqwertqwertqwertqwertqwertqwer" in the search bar.passed
 Then search bar should let the user enter all the characters "qwertqwertqwertqwertqwertqwertqwertqwertqwertqwer" as it has no character limit..passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a language specific search on Lululemon" time="15.169">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters search item in different language "Casquette" in the search bar.passed
 Then User should see the "No search results for" searched item..............passed
 And User should close the browser...........................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a search and select suggestion on Lululemon" time="22.695">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform an search suggestion display on Lululemon" time="14.992">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters item for search suggestion "Hat" in the search bar..........passed
+Then User should see search suggestions containing "Hat" in the search bar..passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a dynamic search suggestion on Lululemon" time="18.648">
 <system-out><![CDATA[
 Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
@@ -60,24 +162,56 @@ And User enters item for search suggestion "Hat" in the search bar..........pass
 Then User should see search suggestions containing "Hat" in the search bar..passed
 And User enters a different item for search suggestion "Tote" in the search bar.passed
 Then User should see search suggestions containing "Tote" but not "Hat" in the search bar.passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a no search suggestion on Lululemon" time="14.856">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters a search suggestion item "mirror" that is not present on the website.passed
 Then User should not see any search suggestions.............................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search and select a suggestion on Lululemon" time="20.049">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters partial search item "Bag" in the search bar.................passed
 Then User should see search suggestions containing "Bag"....................passed
 And User selects the product "Fanny Bag" from the search suggestions........passed
 Then User should see search results for "Fanny Bag".........................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search to see past suggestions on Lululemon" time="11.902">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
 And User clicks on the search bar to see past search suggestions............passed
 Then User should see the past search suggestions............................passed
 And User should close the browser...........................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Lululemon Search Functionality Testing" name="Perform a search pagination on Lululemon" time="31.312">
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search pagination from one page to another page on Lululemon" time="25.682">
 <system-out><![CDATA[
 Given User opens the edge browser...........................................passed
 When User opens the Website url "https://shop.lululemon.com"................passed
 And User enters search item "Bag" in the search bar.........................passed
 Then User should see all the search results for "Bag".......................passed
 And User stores the initial results of the webpage as Initial Results.......passed
+And User navigates to load the next page of search results..................passed
+Then User should see the next set of search results.........................passed
+And User should close the browser...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Lululemon Search Functionality Testing" name="Perform a search pagination till the last page on Lululemon" time="27.454">
+<system-out><![CDATA[
+Given User opens the edge browser...........................................passed
+When User opens the Website url "https://shop.lululemon.com"................passed
+And User enters search item "hoodies" in the search bar.....................passed
+Then User should see all the search results for "hoodies"...................passed
 And User navigates to load the next page of search results..................passed
 Then User should see the next set of search results.........................passed
 And User should navigate to the end of the product list.....................passed
